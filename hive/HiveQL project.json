@@ -41,7 +41,7 @@
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
          "focus": true,
-         "$$hashKey": "object:154"
+         "$$hashKey": "object:235"
       },
       {
          "text": "%md\n### Create table with gs storage\nCreate a Hive table to query wdi_2016.csv.gz from Google storage",
@@ -83,7 +83,7 @@
          "dateFinished": "2019-09-11T14:23:54+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:155"
+         "$$hashKey": "object:236"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_gs;\n\nCREATE EXTERNAL TABLE wdi_gs\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n'\nLOCATION 'gs://jrvs-bootcamp-miriam/datasets/wdi_2016'\nTBLPROPERTIES (\"skip.header.line.count\"=\"1\")",
@@ -175,7 +175,7 @@
          "dateFinished": "2019-09-11T21:28:31+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:157"
+         "$$hashKey": "object:237"
       },
       {
          "text": "%md\nA first query to count all rows\nRuntime: 37 sec",
@@ -217,7 +217,7 @@
          "dateFinished": "2019-09-11T14:25:38+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:158"
+         "$$hashKey": "object:238"
       },
       {
          "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_gs",
@@ -307,7 +307,7 @@
          "dateFinished": "2019-09-11T14:05:01+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:159"
+         "$$hashKey": "object:239"
       },
       {
          "text": "%md\n### Using HDFS storage\nQuerying a google storage file is not efficient. We will export the data to HDFS using a new Hive table and a HiveQL query.",
@@ -349,7 +349,7 @@
          "dateFinished": "2019-09-10T19:07:15+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:160"
+         "$$hashKey": "object:240"
       },
       {
          "text": "%md\nBefore we can create the table we have to create a HDFS directory using the following bash command: hdfs dfs -mkdir -p hdfs:///user/miriam/hive/wdi/wdi_csv_text",
@@ -391,7 +391,7 @@
          "dateFinished": "2019-09-10T19:07:21+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:161"
+         "$$hashKey": "object:241"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_csv_text;\n\nCREATE EXTERNAL TABLE wdi_csv_text\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n'\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_csv_text'",
@@ -479,7 +479,7 @@
          "dateFinished": "2019-09-11T14:27:38+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:163"
+         "$$hashKey": "object:242"
       },
       {
          "text": "%md\nSo far, the directory is empty. We have to copy the data from our first Hive table (wdi_gs) to our new Hive table.\nRuntime: 79 sec",
@@ -521,7 +521,7 @@
          "dateFinished": "2019-09-11T14:29:52+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:164"
+         "$$hashKey": "object:243"
       },
       {
          "text": "%jdbc(hive)\nINSERT OVERWRITE TABLE wdi_csv_text\nSELECT * FROM wdi_gs",
@@ -609,7 +609,7 @@
          "dateFinished": "2019-09-11T14:29:09+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:165"
+         "$$hashKey": "object:244"
       },
       {
          "text": "%md\nSame query to count all rows\nRuntime:  39 sec (first time), 29 sec (second time)\nThe second time is faster because the data is cached and there is no need to read it from HDFS again. After clearing the cache on all nodes in the cluster (bash command 'echo 3 | sudo tee /proc/sys/vm/drop_caches') this query takes longer again.",
@@ -651,7 +651,7 @@
          "dateFinished": "2019-09-11T14:49:48+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:166"
+         "$$hashKey": "object:245"
       },
       {
          "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_csv_text",
@@ -741,7 +741,7 @@
          "dateFinished": "2019-09-11T14:48:40+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:167"
+         "$$hashKey": "object:246"
       },
       {
          "text": "%md\nSome metadata on the table.\nThe table uses LazySimpleSerDe to read the file. The year is stored as int, the indicatorvalue is stored as float, and all other values are stored as strings.",
@@ -783,7 +783,7 @@
          "dateFinished": "2019-09-11T14:50:46+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:168"
+         "$$hashKey": "object:247"
       },
       {
          "text": "%jdbc(hive)\nDESCRIBE FORMATTED wdi_csv_text",
@@ -875,7 +875,7 @@
          "dateFinished": "2019-09-11T14:50:16+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:169"
+         "$$hashKey": "object:248"
       },
       {
          "text": "%md\n### Compare Hive and Bash\nCompute the number of rows using a bash command and a hive command.",
@@ -917,7 +917,7 @@
          "dateFinished": "2019-09-11T14:55:23+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:170"
+         "$$hashKey": "object:249"
       },
       {
          "text": "%md\nTo use a bash command we have to copy the data to the local disk first (bash command: hdfs dfs -get hdfs:///user/miriam/hive/wdi/wdi_csv_text .). This directory has size 1.8 GB.\nThen we can run the command to compute the number of rows (date +%s && cat * | wc -l && date +%s).\nRuntime: 26 sec (Hive 39 sec)\nWe expect the Hive command to take half the time that the bash command uses, because Hive uses two nodes. But the dataset is relatively small, so the time it takes to launch the YARN application is proportionally very big.",
@@ -959,12 +959,12 @@
          "dateFinished": "2019-09-11T14:59:09+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:171"
+         "$$hashKey": "object:250"
       },
       {
-         "text": "%md\nWe will see that for larger files Hive does a lot better than Bash.\nWe create a big dataset by coping one of the existing files 20 times. The new dataset has a size of 9.3 GB.\n\nThese are the bash commands:\nhdfs dfs -cp hdfs:///user/miriam/hive/wdi/wdi_csv_text hdfs:///user/miriam/hive/wdi/wdi_csv_text_big\n\nfor i in {1..20}\ndo\n\techo \"Copying round: $i\"\n\thdfs dfs -cp hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0 hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0-$i\ndone\n\nhdfs dfs -du -s -h hdfs:///user/miriam/hive/wdi/wdi_csv_text_big",
+         "text": "%md\nWe will see that for larger files Hive does a lot better than Bash.\nWe create a big dataset by coping one of the existing files 100 times. The new dataset has a size of 39.4 GB.\n\nThese are the bash commands:\nhdfs dfs -cp hdfs:///user/miriam/hive/wdi/wdi_csv_text hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig\n\nfor i in {1..100}\ndo\n\techo \"Copying round: $i\"\n\thdfs dfs -cp hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0 hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig/000000_0-$i\ndone\n\nhdfs dfs -du -s -h hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig",
          "user": "anonymous",
-         "dateUpdated": "2019-09-10T17:49:02+0000",
+         "dateUpdated": "2019-09-13T15:26:02+0000",
          "config": {
             "colWidth": 12,
             "fontSize": 9,
@@ -989,7 +989,7 @@
             "msg": [
                {
                   "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<p>We will see that for larger files Hive does a lot better than Bash.<br/>We create a big dataset by coping one of the existing files 20 times. The new dataset has a size of 9.3 GB.<\/p>\n<p>These are the bash commands:<br/>hdfs dfs -cp <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text\">hdfs:///user/miriam/hive/wdi/wdi_csv_text<\/a> <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big<\/a><\/p>\n<p>for i in {1..20}<br/>do<br/> echo &ldquo;Copying round: $i&rdquo;<br/> hdfs dfs -cp <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0<\/a> <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0-$i\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0-$i<\/a><br/>done<\/p>\n<p>hdfs dfs -du -s -h <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big<\/a><\/p>\n<\/div>"
+                  "data": "<div class=\"markdown-body\">\n<p>We will see that for larger files Hive does a lot better than Bash.<br/>We create a big dataset by coping one of the existing files 100 times. The new dataset has a size of 39.4 GB.<\/p>\n<p>These are the bash commands:<br/>hdfs dfs -cp <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text\">hdfs:///user/miriam/hive/wdi/wdi_csv_text<\/a> <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig<\/a><\/p>\n<p>for i in {1..100}<br/>do<br/> echo &ldquo;Copying round: $i&rdquo;<br/> hdfs dfs -cp <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big/000000_0<\/a> <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig/000000_0-$i\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig/000000_0-$i<\/a><br/>done<\/p>\n<p>hdfs dfs -du -s -h <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig<\/a><\/p>\n<\/div>"
                }
             ]
          },
@@ -997,16 +997,16 @@
          "jobName": "paragraph_1566322559603_1109080114",
          "id": "20190820-173559_1078132126",
          "dateCreated": "2019-08-20T17:35:59+0000",
-         "dateStarted": "2019-09-10T17:49:02+0000",
-         "dateFinished": "2019-09-10T17:49:02+0000",
+         "dateStarted": "2019-09-13T15:26:02+0000",
+         "dateFinished": "2019-09-13T15:26:02+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:172"
+         "$$hashKey": "object:251"
       },
       {
-         "text": "%md\nWe will create a new Hive table with the new dataset and count rows again.\nRuntime: 85 sec (no cache), 64 sec(cached)",
+         "text": "%md\nWe will create a new Hive table with the new dataset and count rows again.\nRuntime: 241 sec",
          "user": "anonymous",
-         "dateUpdated": "2019-09-11T17:19:35+0000",
+         "dateUpdated": "2019-09-13T15:31:13+0000",
          "config": {
             "colWidth": 12,
             "fontSize": 9,
@@ -1026,81 +1026,26 @@
             "params": {},
             "forms": {}
          },
-         "results": {
-            "code": "SUCCESS",
-            "msg": [
-               {
-                  "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<p>We will create a new Hive table with the new dataset and count rows again.<br/>Runtime: 85 sec (no cache), 64 sec(cached)<\/p>\n<\/div>"
-               }
-            ]
-         },
          "apps": [],
          "jobName": "paragraph_1566323771586_-1639958951",
          "id": "20190820-175611_483281839",
          "dateCreated": "2019-08-20T17:56:11+0000",
-         "dateStarted": "2019-09-11T17:19:35+0000",
-         "dateFinished": "2019-09-11T17:19:37+0000",
+         "dateStarted": "2019-09-13T15:31:13+0000",
+         "dateFinished": "2019-09-13T15:31:13+0000",
          "status": "FINISHED",
+         "errorMessage": "",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:173"
+         "$$hashKey": "object:252"
       },
       {
-         "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_csv_text_big;\n\nCREATE EXTERNAL TABLE wdi_csv_text_big\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n'\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_csv_text_big'",
+         "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_csv_text_verybig;\n\nCREATE EXTERNAL TABLE wdi_csv_text_verybig\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n'\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig'",
          "user": "anonymous",
-         "dateUpdated": "2019-09-11T21:33:36+0000",
+         "dateUpdated": "2019-09-13T15:22:21+0000",
          "config": {
             "colWidth": 12,
             "fontSize": 9,
             "enabled": true,
-            "results": {
-               "0": {
-                  "graph": {
-                     "mode": "table",
-                     "height": 300,
-                     "optionOpen": false,
-                     "setting": {
-                        "table": {
-                           "tableGridState": {},
-                           "tableColumnTypeState": {
-                              "names": {}
-                           },
-                           "tableOptionSpecHash": [
-                              {
-                                 "name": "useFilter",
-                                 "valueType": "boolean",
-                                 "defaultValue": false,
-                                 "widget": "checkbox",
-                                 "description": "Enable filter for columns"
-                              },
-                              {
-                                 "name": "showPagination",
-                                 "valueType": "boolean",
-                                 "defaultValue": false,
-                                 "widget": "checkbox",
-                                 "description": "Enable pagination for better navigation"
-                              },
-                              {
-                                 "name": "showAggregationFooter",
-                                 "valueType": "boolean",
-                                 "defaultValue": false,
-                                 "widget": "checkbox",
-                                 "description": "Enable a footer for displaying aggregated values"
-                              }
-                           ],
-                           "tableOptionValue": {
-                              "useFilter": false,
-                              "showPagination": false,
-                              "showAggregationFooter": false
-                           },
-                           "updated": false,
-                           "initialized": false
-                        }
-                     },
-                     "commonSetting": {}
-                  }
-               }
-            },
+            "results": {},
             "editorSetting": {
                "language": "sql",
                "editOnDblClick": false,
@@ -1120,23 +1065,27 @@
                {
                   "type": "TEXT",
                   "data": "Query executed successfully. Affected rows : -1"
+               },
+               {
+                  "type": "TEXT",
+                  "data": "Query executed successfully. Affected rows : -1"
                }
             ]
          },
          "apps": [],
-         "jobName": "paragraph_1566323732285_-276644191",
-         "id": "20190820-175532_1655105912",
-         "dateCreated": "2019-08-20T17:55:32+0000",
-         "dateStarted": "2019-09-11T15:00:10+0000",
-         "dateFinished": "2019-09-11T15:00:11+0000",
+         "jobName": "paragraph_1568386237911_-1471461619",
+         "id": "20190913-145037_1309274215",
+         "dateCreated": "2019-09-13T14:50:37+0000",
+         "dateStarted": "2019-09-13T14:52:46+0000",
+         "dateFinished": "2019-09-13T14:52:49+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:175"
+         "$$hashKey": "object:253"
       },
       {
-         "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_csv_text_big",
+         "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_csv_text_verybig",
          "user": "anonymous",
-         "dateUpdated": "2019-09-11T15:03:44+0000",
+         "dateUpdated": "2019-09-13T15:26:12+0000",
          "config": {
             "colWidth": 12,
             "fontSize": 9,
@@ -1145,7 +1094,7 @@
                "0": {
                   "graph": {
                      "mode": "table",
-                     "height": 108,
+                     "height": 124,
                      "optionOpen": false,
                      "setting": {
                         "table": {
@@ -1209,24 +1158,24 @@
             "msg": [
                {
                   "type": "TABLE",
-                  "data": "_c0\n117541368\n"
+                  "data": "_c0\n500669208\n"
                }
             ]
          },
          "apps": [],
-         "jobName": "paragraph_1566323991612_-721087207",
-         "id": "20190820-175951_1369399052",
-         "dateCreated": "2019-08-20T17:59:51+0000",
-         "dateStarted": "2019-09-11T15:02:09+0000",
-         "dateFinished": "2019-09-11T15:03:13+0000",
+         "jobName": "paragraph_1568386377693_744237861",
+         "id": "20190913-145257_1807759689",
+         "dateCreated": "2019-09-13T14:52:57+0000",
+         "dateStarted": "2019-09-13T15:26:13+0000",
+         "dateFinished": "2019-09-13T15:30:14+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:176"
+         "$$hashKey": "object:254"
       },
       {
-         "text": "%md\nIn order to use the bash command we have to copy the data to the local disk first. Then we can execute the bash command.\n# Running time: 90 sec ??????????????????????\nAs expected, now the bash command takes about twice as long as the Hive query.\n\nThese are the bash commands:\nhdfs dfs -get hdfs:///user/miriam/hive/wdi/wdi_csv_text_big .\ncd wdi_csv_text_big\ndate +%s && cat * | wc -l && date +%s",
+         "text": "%md\nIn order to use the bash command we have to copy the data to the local disk first. Then we can execute the bash command.\nRun time: 417 sec\nAs expected, now the bash command takes about twice as long as the Hive query.\n\nThese are the bash commands:\nhdfs dfs -get hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig .\ncd wdi_csv_text_verybig\ndate +%s && cat * | wc -l && date +%s",
          "user": "anonymous",
-         "dateUpdated": "2019-09-11T15:13:33+0000",
+         "dateUpdated": "2019-09-13T15:21:52+0000",
          "config": {
             "colWidth": 12,
             "fontSize": 9,
@@ -1251,7 +1200,7 @@
             "msg": [
                {
                   "type": "HTML",
-                  "data": "<div class=\"markdown-body\">\n<p>In order to use the bash command we have to copy the data to the local disk first. Then we can execute the bash command.<\/p>\n<h1>Running time: 90 sec ??????????????????????<\/h1>\n<p>As expected, now the bash command takes about twice as long as the Hive query.<\/p>\n<p>These are the bash commands:<br/>hdfs dfs -get <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_big\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_big<\/a> .<br/>cd wdi_csv_text_big<br/>date +%s &amp;&amp; cat * | wc -l &amp;&amp; date +%s<\/p>\n<\/div>"
+                  "data": "<div class=\"markdown-body\">\n<p>In order to use the bash command we have to copy the data to the local disk first. Then we can execute the bash command.<br/>Run time: 417 sec<br/>As expected, now the bash command takes about twice as long as the Hive query.<\/p>\n<p>These are the bash commands:<br/>hdfs dfs -get <a href=\"hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig\">hdfs:///user/miriam/hive/wdi/wdi_csv_text_verybig<\/a> .<br/>cd wdi_csv_text_verybig<br/>date +%s &amp;&amp; cat * | wc -l &amp;&amp; date +%s<\/p>\n<\/div>"
                }
             ]
          },
@@ -1259,11 +1208,11 @@
          "jobName": "paragraph_1566324135297_919229207",
          "id": "20190820-180215_1337695632",
          "dateCreated": "2019-08-20T18:02:15+0000",
-         "dateStarted": "2019-09-11T15:13:33+0000",
-         "dateFinished": "2019-09-11T15:13:33+0000",
+         "dateStarted": "2019-09-13T15:21:52+0000",
+         "dateFinished": "2019-09-13T15:21:52+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:177"
+         "$$hashKey": "object:255"
       },
       {
          "text": "%md\n### Parsing issues\nThe problem with the next query is the used SerDe. It uses every comma as a sparator but some text in the indicatorname column is supposed to contain commas, which the LazySimpleSerDe does not recognize.",
@@ -1305,7 +1254,7 @@
          "dateFinished": "2019-08-21T17:55:42+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:178"
+         "$$hashKey": "object:256"
       },
       {
          "text": "%jdbc(hive)\nSELECT distinct(indicatorcode)\nFROM wdi_csv_text\nORDER BY indicatorcode\nLIMIT 20",
@@ -1396,7 +1345,7 @@
          "dateFinished": "2019-09-11T15:14:40+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:179"
+         "$$hashKey": "object:257"
       },
       {
          "text": "%md\n### Create debug table\nWe want to create a Hive table with just one column so we can see the complete lines for debugging purposes.",
@@ -1438,7 +1387,7 @@
          "dateFinished": "2019-09-11T15:15:17+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:180"
+         "$$hashKey": "object:258"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_gs_debug;\n\nCREATE EXTERNAL TABLE wdi_gs_debug\n(line STRING)\nLOCATION 'gs://jrvs-bootcamp-miriam/datasets/wdi_2016'\nTBLPROPERTIES (\"skip.header.line.count\"=\"1\")",
@@ -1526,7 +1475,7 @@
          "dateFinished": "2019-09-11T15:15:08+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:182"
+         "$$hashKey": "object:259"
       },
       {
          "text": "%md\nWhen we query some line parsing errors, our previous guess is confirmed. The commas inbetween quotations marks should be ignored when reading a line, but they are not.",
@@ -1568,7 +1517,7 @@
          "dateFinished": "2019-09-11T15:15:24+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:183"
+         "$$hashKey": "object:260"
       },
       {
          "text": "%jdbc(hive)\nSELECT distinct(line) FROM wdi_gs_debug\nWHERE line LIKE \"%(\\% of urban population)\\\"%\"\nLIMIT 10",
@@ -1659,7 +1608,7 @@
          "dateFinished": "2019-09-11T15:16:34+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:184"
+         "$$hashKey": "object:261"
       },
       {
          "text": "%md\n### Create table with OpenCSV SerDe\nCreate a new Hive table with data from gs using OpenCSV SerDe to avoid parsing issues.",
@@ -1701,7 +1650,7 @@
          "dateFinished": "2019-09-11T15:17:46+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:185"
+         "$$hashKey": "object:262"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_opencsv_gs;\n\nCREATE EXTERNAL TABLE wdi_opencsv_gs\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'\nWITH SERDEPROPERTIES (\n    \"separatorChar\" = \",\",\n    \"quoteChar\" = \"\\\"\",\n    \"escapeChar\" = \"\\\\\"\n)\nLOCATION 'gs://jrvs-bootcamp-miriam/datasets/wdi_2016'\nTBLPROPERTIES (\"skip.header.line.count\"=\"1\")",
@@ -1789,7 +1738,7 @@
          "dateFinished": "2019-09-11T15:18:19+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:187"
+         "$$hashKey": "object:263"
       },
       {
          "text": "%md\nNow, the indicatorcodes make sense.",
@@ -1830,7 +1779,7 @@
          "dateFinished": "2019-09-11T15:18:45+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:188"
+         "$$hashKey": "object:264"
       },
       {
          "text": "%jdbc(hive)\nSELECT distinct(indicatorcode)\nFROM wdi_opencsv_gs\nORDER BY indicatorcode\nLIMIT 20",
@@ -1920,7 +1869,7 @@
          "dateFinished": "2019-09-11T15:20:20+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:189"
+         "$$hashKey": "object:265"
       },
       {
          "text": "%md \nNext, we export the data using OpenCSVSerde to a HDFS location using a new Hive table.",
@@ -1962,7 +1911,7 @@
          "dateFinished": "2019-09-11T15:22:46+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:190"
+         "$$hashKey": "object:266"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_opencsv_text;\nCREATE EXTERNAL TABLE wdi_opencsv_text\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_opencsv_text'",
@@ -2054,7 +2003,7 @@
          "dateFinished": "2019-09-11T21:34:55+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:192"
+         "$$hashKey": "object:267"
       },
       {
          "text": "%jdbc(hive)\nINSERT OVERWRITE TABLE wdi_opencsv_text\nSELECT * FROM wdi_opencsv_gs",
@@ -2142,7 +2091,7 @@
          "dateFinished": "2019-09-11T21:36:50+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:193"
+         "$$hashKey": "object:268"
       },
       {
          "text": "%md\nThe indicator codes make sense in the new table.",
@@ -2184,7 +2133,7 @@
          "dateFinished": "2019-09-11T15:25:21+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:194"
+         "$$hashKey": "object:269"
       },
       {
          "text": "%jdbc(hive)\nSELECT distinct(indicatorcode)\nFROM wdi_opencsv_text\nORDER BY indicatorcode\nLIMIT 20",
@@ -2274,7 +2223,7 @@
          "dateFinished": "2019-09-11T15:26:51+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:195"
+         "$$hashKey": "object:270"
       },
       {
          "text": "%md\nWe compare the running time for counting rows using LazySimpleSerDe (table wdi_csv_text) and using OpenCSVSerde (table wdi_opencsv_text).\nRuntime: 40 sec for LazySimpleSerDe, 84 sec for OpenCSVSerde\nUsing the OpenCSVSerde is significantly slower. This is probably the reaseon because the OpenCSVSerde uses a more complicated parsing schema that takes longer to execute.",
@@ -2316,7 +2265,7 @@
          "dateFinished": "2019-09-11T15:30:01+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:196"
+         "$$hashKey": "object:271"
       },
       {
          "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_csv_text",
@@ -2406,7 +2355,7 @@
          "dateFinished": "2019-09-11T15:28:06+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:197"
+         "$$hashKey": "object:272"
       },
       {
          "text": "%jdbc(hive)\nSELECT count(countryName) FROM wdi_opencsv_text",
@@ -2496,7 +2445,7 @@
          "dateFinished": "2019-09-11T15:29:44+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:198"
+         "$$hashKey": "object:273"
       },
       {
          "text": "%md\n### OpenCSVSerde limitations\nUsing OpenCSVSerde is not only slower in peformance, it also parses all columns as strings.",
@@ -2538,7 +2487,7 @@
          "dateFinished": "2019-09-11T15:28:12+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:199"
+         "$$hashKey": "object:274"
       },
       {
          "text": "%jdbc(hive)\nDESCRIBE FORMATTED wdi_opencsv_text",
@@ -2630,7 +2579,7 @@
          "dateFinished": "2019-09-11T15:30:15+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:200"
+         "$$hashKey": "object:275"
       },
       {
          "text": "%md\nThe problem of only strings can be fixed with a view, where we cast year and indicatorValue.",
@@ -2672,7 +2621,7 @@
          "dateFinished": "2019-08-21T18:02:27+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:201"
+         "$$hashKey": "object:276"
       },
       {
          "text": "%jdbc(hive)\nDROP VIEW IF EXISTS wdi_opencsv_text_view;\n\nCREATE VIEW wdi_opencsv_text_view\nAS\nSELECT cast(year AS integer),countryName, countryCode, indicatorName, indicatorCode, cast(indicatorValue AS float) FROM wdi_opencsv_text",
@@ -2760,7 +2709,7 @@
          "dateFinished": "2019-09-11T15:30:50+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:203"
+         "$$hashKey": "object:277"
       },
       {
          "text": "%jdbc(hive)\nDESCRIBE FORMATTED wdi_opencsv_text_view",
@@ -2852,7 +2801,7 @@
          "dateFinished": "2019-09-11T15:31:32+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:204"
+         "$$hashKey": "object:278"
       },
       {
          "text": "%md\n## Canada GDP growth\nFind the 2015 GDP growth (annual %) for Canada\n1. Find correct indicatorCode (Run time 85 sec)\n2. Find 2015 GDP growth (Run time 82 sec)",
@@ -2894,7 +2843,7 @@
          "dateFinished": "2019-09-11T15:36:53+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:205"
+         "$$hashKey": "object:279"
       },
       {
          "text": "%jdbc(hive)\nSELECT distinct(indicatorCode), indicatorName FROM wdi_opencsv_text\nWHERE indicatorName LIKE '%GDP growth%'",
@@ -2985,7 +2934,7 @@
          "dateFinished": "2019-09-11T15:34:12+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:206"
+         "$$hashKey": "object:280"
       },
       {
          "text": "%jdbc(hive)\nSELECT year, indicatorValue, countryName FROM wdi_opencsv_text\nWHERE indicatorCode = 'NY.GDP.MKTP.KD.ZG'\nAND year = '2015'\nAND countryName = 'Canada'",
@@ -3077,7 +3026,7 @@
          "dateFinished": "2019-09-11T15:36:05+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:207"
+         "$$hashKey": "object:281"
       },
       {
          "text": "%md\n### Hive partitions\nThe running time of the query can be improved by using partitions. We create a  new table and partition that table by year.",
@@ -3118,7 +3067,7 @@
          "dateFinished": "2019-09-11T15:37:22+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:208"
+         "$$hashKey": "object:282"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_opencsv_text_partitions;\n\nCREATE EXTERNAL TABLE wdi_opencsv_text_partitions\n(countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nPARTITIONED BY (year INTEGER)\nROW FORMAT DELIMITED\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_opencsv_text_partitions'",
@@ -3206,7 +3155,7 @@
          "dateFinished": "2019-09-11T21:11:36+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:210"
+         "$$hashKey": "object:283"
       },
       {
          "text": "%jdbc(hive)\nset hive.exec.dynamic.partition.mode=nonstrict;\n\nINSERT OVERWRITE TABLE wdi_opencsv_text_partitions PARTITION (year)\nSELECT countryName, countryCode, indicatorName, indicatorCode, indicatorValue, YEAR FROM wdi_opencsv_text",
@@ -3298,7 +3247,7 @@
          "dateFinished": "2019-09-11T21:22:33+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:212"
+         "$$hashKey": "object:284"
       },
       {
          "text": "%md \n57 subdirectories were created, one for each year.",
@@ -3340,7 +3289,7 @@
          "dateFinished": "2019-09-11T15:44:49+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:213"
+         "$$hashKey": "object:285"
       },
       {
          "text": "%md\nLet's run the query for the GDP on the partitioned table.\nRuntime. 2 sec (about 40 times faster than on the unpatitioned table)\nThe query is so much faster because it only has to go through 34.3 MB instead of 2.3 GB.",
@@ -3382,7 +3331,7 @@
          "dateFinished": "2019-09-11T17:34:27+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:214"
+         "$$hashKey": "object:286"
       },
       {
          "text": "%jdbc(hive)\nSELECT year, indicatorValue, countryName FROM wdi_opencsv_text_partitions\nWHERE indicatorCode = 'NY.GDP.MKTP.KD.ZG'\nAND year = '2015'\nAND countryName = 'Canada'",
@@ -3474,7 +3423,7 @@
          "dateFinished": "2019-09-11T17:32:56+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:215"
+         "$$hashKey": "object:287"
       },
       {
          "text": "%md\n### Columnar File Optimization\nAnother possible optimization is using a column-oriented file format for storing the data.\nWe create a Hive table where the data is stored as parquet. The files for the parquet table are a lot smaller (137.2 MB vs 2.3 GB) because parquet compresses the data.",
@@ -3516,7 +3465,7 @@
          "dateFinished": "2019-09-11T17:38:59+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:216"
+         "$$hashKey": "object:288"
       },
       {
          "text": "%jdbc(hive)\nDROP TABLE IF EXISTS wdi_csv_parquet;\n\nCREATE EXTERNAL TABLE wdi_csv_parquet\n(year INTEGER, countryName STRING, countryCode STRING, indicatorName STRING, indicatorCode STRING, indicatorValue FLOAT)\nSTORED AS PARQUET\nLOCATION 'hdfs:///user/miriam/hive/wdi/wdi_csv_parquet'",
@@ -3604,7 +3553,7 @@
          "dateFinished": "2019-09-11T17:35:15+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:218"
+         "$$hashKey": "object:289"
       },
       {
          "text": "%jdbc(hive)\nINSERT OVERWRITE TABLE wdi_csv_parquet\nSELECT * FROM wdi_opencsv_gs",
@@ -3692,7 +3641,7 @@
          "dateFinished": "2019-09-11T17:37:24+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:219"
+         "$$hashKey": "object:290"
       },
       {
          "text": "%md\nLet's compare the running times for counting rows in the parquet table and the plain text table.\nRunning time: 32 sec (parquet), 91 sec (plain text)\nUsing the parquet table is faster because the files are a lot smaller and less data has to be transferred.",
@@ -3734,7 +3683,7 @@
          "dateFinished": "2019-09-11T21:40:52+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:220"
+         "$$hashKey": "object:291"
       },
       {
          "text": "%jdbc(hive)\nSELECT COUNT(countryName) FROM wdi_csv_parquet",
@@ -3824,7 +3773,7 @@
          "dateFinished": "2019-09-11T17:41:04+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:221"
+         "$$hashKey": "object:292"
       },
       {
          "text": "%jdbc(hive)\nSELECT COUNT(countryName) FROM wdi_opencsv_text",
@@ -3914,7 +3863,7 @@
          "dateFinished": "2019-09-11T21:40:33+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:222"
+         "$$hashKey": "object:293"
       },
       {
          "text": "%md Let's compare the running time for the 2015 GDP query.\nThe running time for the plain text table is 91 secondes. The running time for the parquet table is 10 secondes, about 9 times faster than for the plain text table. The running time is so much faster because parquet is a column-oriented storage format, which makes it easier to skip columns that are not relevant for a query.",
@@ -3956,7 +3905,7 @@
          "dateFinished": "2019-09-11T17:48:27+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:223"
+         "$$hashKey": "object:294"
       },
       {
          "text": "%jdbc(hive)\nSELECT year, indicatorValue, countryName FROM wdi_opencsv_text\nWHERE indicatorCode = 'NY.GDP.MKTP.KD.ZG'\nAND year = '2015'",
@@ -4048,7 +3997,7 @@
          "dateFinished": "2019-09-11T17:48:05+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:224"
+         "$$hashKey": "object:295"
       },
       {
          "text": "%jdbc(hive)\nSELECT year, indicatorValue, countryName FROM wdi_csv_parquet\nWHERE indicatorCode = 'NY.GDP.MKTP.KD.ZG'\nAND year = '2015'",
@@ -4140,7 +4089,7 @@
          "dateFinished": "2019-09-11T17:46:24+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:225"
+         "$$hashKey": "object:296"
       },
       {
          "text": "%md\n### Highest GDP growth\nFind the highest GDP growth for every country. Output: GDP_growth_value, year, countryName \nRuntime 115 sec",
@@ -4182,7 +4131,7 @@
          "dateFinished": "2019-09-11T18:28:03+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:226"
+         "$$hashKey": "object:297"
       },
       {
          "text": "%jdbc(hive)\nSELECT wdi_csv_parquet.indicatorValue, wdi_csv_parquet.year, wdi_csv_parquet.countryName\nFROM (SELECT MAX(indicatorValue) AS ind, countryName FROM wdi_csv_parquet\n     WHERE indicatorcode = 'NY.GDP.MKTP.KD.ZG'\n     AND indicatorValue <> 0\n     GROUP BY countryName) t1\n     INNER JOIN wdi_csv_parquet\n     ON t1.ind = wdi_csv_parquet.indicatorValue\n         AND t1.countryName = wdi_csv_parquet.countryName\nORDER BY wdi_csv_parquet.countryName",
@@ -4274,7 +4223,7 @@
          "dateFinished": "2019-09-11T18:27:41+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:227"
+         "$$hashKey": "object:298"
       },
       {
          "text": "%md\n### Sort GDP by country and year\nFind GDP growth for all countries. Sort by country and year\nRuntime: 33 sec ",
@@ -4316,7 +4265,7 @@
          "dateFinished": "2019-09-11T18:29:28+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:228"
+         "$$hashKey": "object:299"
       },
       {
          "text": "%jdbc(hive)\nSELECT countryName, year, indicatorcode, indicatorValue FROM wdi_csv_parquet\nWHERE indicatorcode = 'NY.GDP.MKTP.KD.ZG'\nCLUSTER BY countryName, year",
@@ -4413,7 +4362,7 @@
          "dateFinished": "2019-09-11T18:28:57+0000",
          "status": "FINISHED",
          "progressUpdateIntervalMs": 500,
-         "$$hashKey": "object:229"
+         "$$hashKey": "object:300"
       }
    ],
    "name": "HiveQL project",
