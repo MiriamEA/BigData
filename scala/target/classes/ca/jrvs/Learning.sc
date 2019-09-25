@@ -1,7 +1,4 @@
-/**
-  * var and val
-  */
-
+/* var and val */
 var x = 234
 //x = "abc" not possible because x is Int
 x = 4
@@ -10,10 +7,7 @@ val y = "abc"
 //y = "abcde" not possbile because val cannot be changed
 
 
-/**
-  * Expressions
-  */
-
+/* Expressions */
 println{
   val y = "abc"
   "$y test"
@@ -23,24 +17,14 @@ println{
   s"$y test"
 }
 
-
-/**
-  * if-else
-  */
-
+/* if-else */
 if(3 > 9){
   println("crazy")
 }else{
   println("3 is less than 9")
 }
 
-if(3 > 10) println("crazy") else println("3 is less than 10")
-
-
-/**
-  * Methods
-  */
-
+/* Methods */
 def meLike(thing: String = "chocolate") : String = {
   s"I like $thing!"
 }
@@ -50,19 +34,15 @@ meLike("ice cream")
 def twoArgs(animal: String, color : String): String ={
   s"The $animal is $color."
 }
-twoArgs("green", "turtle")    //order of parameters matters
-twoArgs(color = "green", animal = "turtle")  //named call, order not important
+twoArgs("green", "turtle")
+twoArgs(color = "green", animal = "turtle") //named call, order not important
 
 def meLike2(thing1: String = "cats", thing2 : String) : String = {
   s"I like $thing1 and $thing2."
 }
 meLike2(thing2 = "dogs")
 
-
-/**
-  * Classes
-  */
-
+/* Classes */
 class Carrot(val flavour: String)
 var c = new Carrot("weird")
 c.flavour //flavour can only be accessed if val or var
@@ -79,7 +59,6 @@ class Animal {
     println("Makes a sound")
   }
 }
-//overriding super method
 class Dog extends Animal {
   @Override
   override def makesSound(): Unit = {
@@ -91,11 +70,7 @@ d.makesSound()
 var a = new Animal
 a.makesSound()
 
-
-/**
-  * apply() function
-  */
-
+/* apply() function */
 class Cloud {
   def apply() = {
     "floating"
@@ -104,16 +79,12 @@ class Cloud {
 var cl = new Cloud
 cl() //apply() is called
 
-
-/**
-  * Objects
-  */
-//objects cannot be instantiated, they are singletons
-
+/* Objects */
 object Hello {
   def speak = "Hello!"
 }
 println(Hello.speak)
+//objects cannot be instantiated, they are singletons
 
 class Simpson {
   var color = "yellow"
@@ -127,21 +98,15 @@ object Bart extends Simpson{
 println(Bart.speak)
 //objects can inherit from classes, but classes cannot inherit from objects
 
-
-
-/**
-  * Traits
-  */
-//traits cannot be instantiated directly
-
+/* Traits */
 trait Cool {
   var speak = "I am cool"
 }
 
 object JoeCamel extends Cool
 println(JoeCamel.speak)
+//traits cannot be instantiated directly
 
-//traits allow multiple inheritance
 trait Speed {
   def run = "really fast"
 }
@@ -155,11 +120,10 @@ object Spiderman extends Speed with Jump {
   }
 }
 println(Spiderman.describe)
+//traits allow multiple inheritance
 
 
-/**
-  * More functions
-  */
+/* More functions */
 
 def triple(x: Int): Int = x * 3
 val tripleCopy: (Int) => Int = triple
@@ -185,18 +149,14 @@ println(funify("cats", play))
 //funify takes string and function as input
 
 
-/**
-  * Partial application
-  */
+/* Partial application */
 
 def adder(m: Int, n: Int) = m + n
 val add5 = adder(5, _:Int)
 println(add5(5))
 
 
-/**
-  * Pattern matching
-  */
+/* Pattern matching */
 
 val times = 1
 times match {
@@ -206,18 +166,15 @@ times match {
 }
 
 
-/**
-  * Case classes
-  */
-//used to conveniently store and match on contents of a class
-//case classes automatically have equality and nice toString methods based on the constructor arguments
+/* ***Case classes*** */
 
+//used to conveniently store and match on contents of a class
 case class Calculator(brand: String, model: String)
 
+//case classes automatically have equality and nice toString methods based on the constructor arguments
 val hp20b = new Calculator("HP", "20B")
-val hp30b = Calculator("HP", "30B")
-//case classes are immutable
-//hp20b.brand = "AB"  --> error
+val hp30b = Calculator("HP", "30B")4
+hp20b.brand = "AB"
 
 def calcType(calc: Calculator) = calc match {
   case Calculator("HP", "20B") => "financial"
@@ -227,12 +184,7 @@ def calcType(calc: Calculator) = calc match {
 }
 println(calcType(hp20b))
 
-val hp = hp20b.copy(model ="AB")
-
-
-/**
-  * Implicit values
-  */
+/* Implicite values */
 
 object Omg {
   def speak(implicit emotion: String) = {
@@ -252,12 +204,10 @@ evil
 evil("cool")
 
 
-/**
-  * Pure functions
-  */
+/* ***Pure functions*** */
+
 //output of pure function depends only on input,
 //no side effects (I/O, changes a variable/object, ...
-
 def add(x: Int, y :Int) :Int = {
   x + y
 }   //pure
@@ -267,9 +217,7 @@ def changeStuff: Unit = {
 }   //not pure, because x is changed
 
 
-/**
-  * Option, Some, and None
-  */
+/* ***Option, Some, and None*** */
 
 //instead of returning one object when a function succeeds and null when it fails
 //your function should instead return an instance of an Option,
@@ -290,9 +238,7 @@ println(completeName("coolio", null))
 println(completeName("cat", "dog"))
 
 
-/**
-  * Returning a function
-  */
+/* ***Returning a function*** */
 
 def addingX(x:Int) : Int => Int = {
   z => x + z
@@ -305,20 +251,15 @@ val adding9 = addingX(9)
 adding9(4)
 
 
-/**
-  * Casting
-  */
+/* ***Casting*** */
 
 val lo: Long = 987654321
-val f: Float = lo   //long is automatically cast to float
+val f: Float = lo
 println(lo % 2)
 println(f % 2)  //precision loss
 
 
-/**
-  * Class with two constructors
-  */
-//second constructor has to have message
+/* ***Class with two constructors*** */
 
 class Greeter(message: String, secondaryMessage: String) {
   def this(message: String) = this(message, "")
@@ -330,126 +271,3 @@ val greeter = new Greeter("Hello world!")
 greeter.SayHi()
 val greeter1 = new Greeter ( "Hello", "world!")
 greeter1.SayHi()
-
-
-/**
-  * Companion objects
-  */
-//Classes and Objects can have the same name. The object is called a Companion Object
-
-class Bar(foo: String){
-  def pri() = {
-    println(foo)
-  }
-}
-
-object Bar {
-  def apply(foo: String) = new Bar(foo)
-}
-
-var l = Bar("hi")
-l.pri()
-
-
-/**
-  * Lists
-  */
-//lists are immutable, unless specified otherwise
-
-val ls = List(1,2,3,4,5,6,7,8)
-ls.tail
-ls.head
-ls.headOption
-val ls1 = List(1).tail
-ls1.headOption
-val ls2 = List()
-//ls2.head throws exception because the list is empty
-
-val days = "Monday" :: "Tuesday" :: "Wednesday" :: List()
-days match{
-  case firstDay :: otherDays => println("First day is " + firstDay)
-  case List() => println("No days")
-}
-
-val numbers = List(1,2,3,4,5,4,3)
-println(numbers.map((x:Int) => 2 *x))
-
-var sum = 0;
-numbers.foreach((x:Int) => sum = sum + x)
-println(sum)
-
-val singers = List("shakira", "nicky jam")
-var result = singers.map( (s: String) => s"$s is cool" )
-singers.size
-singers.length
-
-val list = List(3,6,36)
-println(list.foldRight(36*36){(x:Int, y :Int) =>
-{
-  println(x + " " + y)
-  y / x}})
-
-println(list.foldLeft(1){(x:Int, y:Int) => {
-  println(x + " " + y)
-  y / x}})
-
-
-/**
-  * map, reduce, fold
-  */
-
-//find longest string in list
-var names = List("tuco", "jesse", "hank", "gustavo")
-var res = ""
-names.foreach((s:String) => {
-  if(s.length() > res.length()){
-    res = s
-  }
-})
-println(res)
-names.reduceRight{(s:String, t:String )=>
-  {
-    if(s.length > t.length()){
-      s
-    }else{
-      t
-    }
-  }
-}
-
-//fold requires start value
-var letters = List("g", "o", "a", "t")
-letters.foldLeft(""){(s,t) => s+t}
-var huh = List("l", "o", "o", "c")
-huh.foldRight("")((s,t) => t +s )
-var countries = List("brazil", "argentina", "colombia")
-countries.reduceLeft{(s, t) => s + ", " + t}
-
-var me = List("i", "am", "quiet")
-me.map(s => s.toUpperCase())
-
-var whatever = List(1, 2, 3, 4, 5, 6, 7)
-whatever.foldLeft(0){(n,m) => if(m % 2 == 0) n + m else n }
-
-
-/**
-  * Function composition
-  */
-
-def f(s: String) = "f(" + s + ")"
-def g(s: String) = "g(" + s + ")"
-val fComposeg = f _ compose g _       //like math f(g(x))
-fComposeg("yay")
-val fAndTheng = f _ andThen g _       //like reading the definition g(f(x))
-fAndTheng("yay")
-
-
-/**
-  * Semicolon & formatting
-  */
-if(true){println("hi"); println("more")}
-//if(true){println("Hi") println"more"} doesn't work
-if(true)
-  println("HI")
-  println("More")
-
